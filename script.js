@@ -32,6 +32,11 @@ function makeStack(array) {
   let height = 0.48 * 59 * array.length;
   let stack = document.createElement("div");
   stack.classList.add("stack" + j);
+  stack.id = "stack" + j;
+  stack.setAttribute("draggable", "true");
+  stack.ondragstart = (ev) => {
+    ev.dataTransfer.setData("text", ev.target.id);
+  };
   container.appendChild(stack);
   for (let i = 0; i < array.length; i++) {
     if (array[i] !== "&") {
@@ -45,10 +50,20 @@ function makeStack(array) {
       stack.appendChild(image);
     }
   }
-  stack.setAttribute("height", `${height} !important`);
   j = j + 1;
   stack.style.border = "1px solid black";
   stack.style.width = "110px";
   stack.style.margin = "5px";
   stack.style.height = `${height}px`;
+}
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var id = ev.dataTransfer.getData("text");
+  const draggableElement = document.getElementById(id);
+  const dropzone = event.target;
+  dropzone.appendChild(draggableElement);
 }

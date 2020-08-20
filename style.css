@@ -6,9 +6,17 @@
   border: 1px solid black;
   width: 110px;
   margin: 5px;
-  height: 130px;
+  box-sizing: content-box;
 }
 img {
   display: block;
   border: 1px none red;
+}
+#drop-table {
+  border: 1px solid blue;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  width: 400px;
+  height: 200px;
 }
