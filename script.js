@@ -40,7 +40,6 @@ function makeStack(array) {
   stack.ondragstart = (ev) => {
     ev.dataTransfer.setData("text", ev.target.id);
   };
-  resizeOption(stack);
   container.appendChild(stack);
   for (let i = 0; i < array.length; i++) {
     if (array[i] !== "&") {
@@ -54,11 +53,19 @@ function makeStack(array) {
       stack.appendChild(image);
     }
   }
-  j = j + 1;
   stack.style.border = "1px solid black";
   stack.style.width = "110px";
   stack.style.margin = "5px";
   stack.style.height = `${height}px`;
+  stack.style.position = "relative";
+  let resizer = document.createElement("div");
+  resizer.id = "resizer" + j;
+  resizer.style.position = "absolute";
+  resizer.style.right = "0px";
+  resizer.style.bottom = "0px";
+  stack.appendChild(resizer);
+  resizeOption(stack, resizer);
+  j = j + 1;
 }
 
 function allowDrop(ev) {
@@ -72,17 +79,11 @@ function drop(ev) {
   const dropzone = event.target;
   dropzone.appendChild(draggableElement);
 }
-function resizeOption(stack) {
-  var resizer = document.createElement("div");
-  resizer.className = "resizer";
+function resizeOption(stack, resizer) {
   resizer.style.width = "10px";
   resizer.style.height = "10px";
   resizer.style.background = "red";
-  resizer.style.position = "relative";
-  resizer.style.right = "0px";
-  resizer.style.bottom = "0px";
   resizer.style.cursor = "se-resize";
-  stack.appendChild(resizer);
   resizer.addEventListener("mousedown", initResize, false);
 
   function initResize(e) {

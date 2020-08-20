@@ -2,12 +2,6 @@
   display: flex;
   flex-wrap: wrap;
 }
-.stack {
-  border: 1px solid black;
-  width: 110px;
-  margin: 5px;
-  position: relative;
-}
 img {
   display: block;
   border: 1px none red;
