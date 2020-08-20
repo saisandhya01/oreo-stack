@@ -3,6 +3,7 @@ const imageMapping = {
   1: "re1.png",
   2: "bottomo.png",
 };
+
 function generate() {
   let inputString = document.getElementById("string").value;
   console.log(inputString);
@@ -25,8 +26,10 @@ function generate() {
   }
   makeStack(stackArray);
 }
+
 let j = 0;
 let container = document.getElementById("main");
+
 function makeStack(array) {
   let constant = 43 * (array.length - 1);
   let height = 0.48 * 59 * array.length;
@@ -37,6 +40,7 @@ function makeStack(array) {
   stack.ondragstart = (ev) => {
     ev.dataTransfer.setData("text", ev.target.id);
   };
+  resizeOption(stack);
   container.appendChild(stack);
   for (let i = 0; i < array.length; i++) {
     if (array[i] !== "&") {
@@ -56,6 +60,7 @@ function makeStack(array) {
   stack.style.margin = "5px";
   stack.style.height = `${height}px`;
 }
+
 function allowDrop(ev) {
   ev.preventDefault();
 }
@@ -66,4 +71,35 @@ function drop(ev) {
   const draggableElement = document.getElementById(id);
   const dropzone = event.target;
   dropzone.appendChild(draggableElement);
+}
+function resizeOption(stack) {
+  var resizer = document.createElement("div");
+  resizer.className = "resizer";
+  resizer.style.width = "10px";
+  resizer.style.height = "10px";
+  resizer.style.background = "red";
+  resizer.style.position = "relative";
+  resizer.style.right = "0px";
+  resizer.style.bottom = "0px";
+  resizer.style.cursor = "se-resize";
+  stack.appendChild(resizer);
+  resizer.addEventListener("mousedown", initResize, false);
+
+  function initResize(e) {
+    window.addEventListener("mousemove", Resize, false);
+    window.addEventListener("mouseup", stopResize, false);
+  }
+  function Resize(e) {
+    stack.style.width = e.clientX - stack.offsetLeft + "px";
+    stack.style.height = e.clientY - stack.offsetTop + "px";
+    let images = stack.getElementsByTagName("img");
+    for (let i = 0; i < images.length; i++) {
+      images[i].style.width = e.clientX - stack.offsetLeft + "px";
+      images[i].style.height = e.clientY - stack.offsetTop + "px";
+    }
+  }
+  function stopResize(e) {
+    window.removeEventListener("mousemove", Resize, false);
+    window.removeEventListener("mouseup", stopResize, false);
+  }
 }
