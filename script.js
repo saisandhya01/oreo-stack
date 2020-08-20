@@ -28,6 +28,7 @@ function generate() {
 let container = document.getElementById("main");
 function makeStack(array) {
   let constant = 43 * (array.length - 1);
+  let height = 59 * array.length;
   let stack = document.createElement("div");
   stack.classList.add("stack");
   container.appendChild(stack);
@@ -43,4 +44,5 @@ function makeStack(array) {
       stack.appendChild(image);
     }
   }
+  stack.setAttribute("height", `${height} !important`);
 }
