@@ -25,12 +25,13 @@ function generate() {
   }
   makeStack(stackArray);
 }
+let j = 0;
 let container = document.getElementById("main");
 function makeStack(array) {
   let constant = 43 * (array.length - 1);
-  let height = 59 * array.length;
+  let height = 0.48 * 59 * array.length;
   let stack = document.createElement("div");
-  stack.classList.add("stack");
+  stack.classList.add("stack" + j);
   container.appendChild(stack);
   for (let i = 0; i < array.length; i++) {
     if (array[i] !== "&") {
@@ -45,4 +46,9 @@ function makeStack(array) {
     }
   }
   stack.setAttribute("height", `${height} !important`);
+  j = j + 1;
+  stack.style.border = "1px solid black";
+  stack.style.width = "110px";
+  stack.style.margin = "5px";
+  stack.style.height = `${height}px`;
 }
